@@ -47,7 +47,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/hello_world:${{ github.sha }} #, ${{ secrets.DOCKER_USERNAME }}/hello_world:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/hello_world:${{ github.sha }} 
 
       - name: Update Deployment and Tag on Success
         if: success()
@@ -55,11 +55,11 @@ jobs:
           # Get the Docker image SHA from the output of the previous step
           DOCKER_IMAGE_SHA=$(echo "${{ steps.docker_build.outputs.image }}")
           
-          # Tag the image with "latest"
-          docker tag $DOCKER_IMAGE_SHA ${{ secrets.DOCKER_USERNAME }}/hello_world:latest
-
           # Debug: Print the value of DOCKER_IMAGE_SHA
           echo "DOCKER_IMAGE_SHA: $DOCKER_IMAGE_SHA"
+
+          # Tag the image with "latest"
+          docker tag $DOCKER_IMAGE_SHA ${{ secrets.DOCKER_USERNAME }}/hello_world:latest
 
           # Push the "latest" tag to Docker Hub
           docker push ${{ secrets.DOCKER_USERNAME }}/hello_world:latest
