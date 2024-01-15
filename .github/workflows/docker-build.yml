@@ -65,7 +65,7 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/hello_world:latest
 
           # Deploy the new image with ArgoCD (assuming ArgoCD CLI is installed)
-          argocd app set hello-world-deployment --param image.tag=latest
+          # argocd app set hello-world-deployment --param image.tag=latest
 
       - name: Clean Up Unused Docker Images
         run: docker system prune -f
