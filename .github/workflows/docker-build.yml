@@ -53,7 +53,7 @@ jobs:
         if: success()
         run: |
           # Get the Docker image SHA from the output of the previous step
-          DOCKER_IMAGE_SHA=$(echo "${{ steps.docker_build.outputs.image }}")
+          DOCKER_IMAGE_SHA=${{ github.sha }} 
           
           # Debug: Print the value of DOCKER_IMAGE_SHA
           echo "DOCKER_IMAGE_SHA: $DOCKER_IMAGE_SHA"
