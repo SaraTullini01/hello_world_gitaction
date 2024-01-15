@@ -5,8 +5,8 @@ FROM python:3.9-slim-buster
 WORKDIR /app
 
 # Copy the requirements file into the container and install the dependencies
-# COPY requirements.txt .
-# RUN pip install -r requirements.txt
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
 # Copy the rest of the application code into the container
 COPY app.py app.py
