@@ -59,7 +59,7 @@ jobs:
           echo "DOCKER_IMAGE_SHA: $DOCKER_IMAGE_SHA"
 
           # Tag the image with "latest"
-          docker tag $DOCKER_IMAGE_SHA ${{ secrets.DOCKER_USERNAME }}/hello_world:latest
+          docker tag ${{ secrets.DOCKER_USERNAME }}/hello_world:$DOCKER_IMAGE_SHA ${{ secrets.DOCKER_USERNAME }}/hello_world:latest
 
           # Push the "latest" tag to Docker Hub
           docker push ${{ secrets.DOCKER_USERNAME }}/hello_world:latest
