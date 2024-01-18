@@ -1,4 +1,4 @@
-name: Launch App
+name: CI/CD with Selenium Test
 
 on:
   push:
@@ -6,20 +6,27 @@ on:
       - master
 
 jobs:
-  launch-app:
+  build_and_test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-            python-version: '3.x'
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+    - name: Install Dependencies
+      run: pip install -r requirements.txt
 
-      - name: Launch App
-        run: python app.py
+    - name: Launch App
+      run: |
+        python app.py &
+        sleep 20  # Wait for the server to start
+
+    - name: Run tests
+      run: python test_web_interaction.py
+      env:
+        start-url: http://localhost:5000
