@@ -3,7 +3,7 @@ name: Launch App
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   launch-app:
