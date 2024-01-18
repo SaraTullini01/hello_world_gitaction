@@ -64,8 +64,10 @@ jobs:
           # Push the "latest" tag to Docker Hub
           docker push ${{ secrets.DOCKER_USERNAME }}/hello_world:latest
 
-          docker stop hello_world
-          docker container prune -f
+          if [ $( docker ps -a -f name=hello_world | wc -l ) -eq 2 ]; then
+            docker stop hello_world
+            docker container prune -f
+          fi
 
           docker run --name hello_world -d -p 5000:5000 ${{ secrets.DOCKER_USERNAME }}/hello_world:latest
 
