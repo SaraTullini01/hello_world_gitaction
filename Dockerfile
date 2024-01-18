@@ -26,7 +26,7 @@ WORKDIR /app
 # Copia i file necessari nel work directory
 COPY requirements.txt .
 COPY app.py .
-COPY templates/ templates/
+# COPY templates/ templates/
 
 # Installa le dipendenze
 RUN pip install --no-cache-dir -r requirements.txt
