@@ -1,9 +1,27 @@
-name: Write Log File
+# name: Write Log File
+
+# on:
+#   push:
+#     branches:
+#         - master
+
+# jobs:
+#   write_log_file:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v2
+
+#       - name: Write log file
+#         run: |
+#             echo "Commit code: ${{ github.sha }}, Commit message: ${{ github.event.head_commit.message }}, Committer: ${{ github.actor }}, Date and time: $(date)" >> ${{ github.workspace }}/log.txt
+
+#             name: Write to log file
 
 on:
   push:
-    branches:
-        - master
+    branches: [ master ]
 
 jobs:
   write_log_file:
@@ -13,6 +31,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Write log file
+      - name: Write parameters to log file
         run: |
-            echo "Commit code: ${{ github.sha }}, Commit message: ${{ github.event.head_commit.message }}, Committer: ${{ github.actor }}, Date and time: $(date)" >> ${{ github.workspace }}/log.txt
+          echo "${{ github.sha }} - ${{ github.event.head_commit.message }} - ${{ github.actor }} - $(date)" >> log.txt
+
+      - name: Upload log file
+        uses: actions/upload-artifact@v2
+        with:
+          name: log-file
+          path: log.txt
