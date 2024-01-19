@@ -7,3 +7,4 @@ b40f089e00ef34304db2f4481ca2b0cc897bcb0d - prova caricamento file log - SaraTull
 Update log file
 Update log file
 fb22bfdbe3cd3cf60a10ad43a923e5ca21f6f97a - prova unico workflow - SaraTullini01 - Fri Jan 19 12:24:49 UTC 2024
+6cb00a6b304a926cdf2e716d03bb8ee3827680c4 - rimozione log-file.yml - SaraTullini01 - Fri Jan 19 12:49:20 UTC 2024
