@@ -54,3 +54,7 @@ jobs:
             git add log.txt
             git commit -m "Update log file"
             git push
+
+            git config --local user.email "sara.tullini@edu.unife.it"
+            git config --local user.name "SaraTullini01"
+            
