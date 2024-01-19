@@ -20,20 +20,16 @@ name: Write Log File
 #             name: Write to log file
 
 on:
-#   push:
-#     branches: [ master ]
-#     paths-ignore:
-#       - 'log.txt'
-    repository_dispatch:
-      types: trigger_second_workflow
-      
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - 'log.txt'
+
 jobs:
   write_log_file:
     runs-on: ubuntu-latest
 
     steps:
-        # steps for first workflow
-    
       - name: Checkout repository
         uses: actions/checkout@v2
 
@@ -41,8 +37,6 @@ jobs:
         run: |
           if [[ ! "${{ github.event.head_commit.message }}" == *"Merge"* ]]; then
             echo "${{ github.sha }} - ${{ github.event.head_commit.message }} - ${{ github.actor }} - $(date)" >> log.txt
-          else
-            echo "Update log file" >> log.txt
           fi
           
       - name: Upload log file
