@@ -38,8 +38,7 @@ jobs:
           if [[ ! "${{ github.event.head_commit.message }}" == *"Merge"* ]]; then
             echo "${{ github.sha }} - ${{ github.event.head_commit.message }} - ${{ github.actor }} - $(date)" >> log.txt
           fi
-          # echo "${{ github.sha }} - ${{ github.event.head_commit.message }} - ${{ github.actor }} - $(date)" >> log.txt
-
+          
       - name: Upload log file
         uses: actions/upload-artifact@v2
         with:
