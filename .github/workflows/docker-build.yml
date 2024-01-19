@@ -114,4 +114,15 @@ jobs:
       - name: Download updated log file
         run: |
           git pull
-        
+
+  update_file:
+    runs-on: self-hosted #ubuntu-latest
+    needs: write_log_file
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Download updated log file
+        run: |
+          git pull
