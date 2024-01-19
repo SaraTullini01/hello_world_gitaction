@@ -125,4 +125,5 @@ jobs:
 
       - name: Download updated log file
         run: |
+          cd /home/sara/Tirocinio/hello_world/hello_world_gitaction
           git pull origin master
