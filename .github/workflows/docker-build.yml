@@ -78,6 +78,7 @@ jobs:
         run: docker system prune -f
           
   write_log_file:
+    needs: build_and_deploy
     runs-on: ubuntu-latest
 
     steps:
