@@ -1,82 +1,129 @@
-name: Notify
+# name: Notify
+# # on:
+# #   push:
+# #   release:
+# #     types: [published]
+
+# # jobs:
+# #   notify:
+# #     name: Notify via Telegram
+# #     runs-on: ubuntu-latest
+# #     steps:
+# #       - name: Send message to Telegram
+# #         uses: Lukasss93/telegram-action@v2
+# #         env:
+# #           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+# #           TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
 # on:
-#   push:
-#   release:
-#     types: [published]
+#   push: 
+#     branches: [master]
 
 # jobs:
-#   notify:
-#     name: Notify via Telegram
+#   success:
 #     runs-on: ubuntu-latest
 #     steps:
+
+#       - uses: actions/checkout@v2
+
+#       - name: Run success
+#         run: exit 0
+      
 #       - name: Send message to Telegram
-#         uses: Lukasss93/telegram-action@v2
+#         uses: ./
+#         if: always()
 #         env:
-#           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-#           TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
+#             TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+#             TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
+#         with:
+#             status: ${{job.status}}
+
+#   fail:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Run fail
+#         run: exit 1
+#       - name: Send message to Telegram
+#         uses: ./
+#         if: always()
+#         env:
+#             TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+#             TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
+#         with:
+#             status: ${{job.status}}
+
+#   no-status:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Run success
+#         run: exit 0
+#       - name: Send message to Telegram
+#         uses: ./
+#         if: always()
+#         env:
+#             TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+#             TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
+  
+#   alternative-template:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Run success
+#         run: exit 0
+#       - name: Send message to Telegram
+#         uses: ./
+#         if: always()
+#         env:
+#             TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+#             TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
+#         with:
+#             commit_template: ./templates/commit-alternative.mustache
+#             status: ${{job.status}}
+
+name: Notifier
+
 on:
-  push: 
-    branches: [master]
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  success:
-    runs-on: ubuntu-latest
-    steps:
 
-      - uses: actions/checkout@v2
+#   messageSlack:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Notification Slack
+#       uses: rtCamp/action-slack-notify@v2
+#       env:
+#         SLACK_CHANNEL: ci
+#         SLACK_TITLE: Post Title
+#         SLACK_USERNAME: BotCI
+#         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+#         SLACK_MESSAGE: "This is your custom message."
 
-      - name: Run success
-        run: exit 0
-      
-      - name: Send message to Telegram
-        uses: ./
-        if: always()
-        env:
-            TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-            TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
-        with:
-            status: ${{job.status}}
-
-  fail:
+#   notifyWhatsApp:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@master
+#       - name: Notification WhatsApp
+#         id: whatsapp-notify
+#         env:
+#           account_sid: ${{ secrets.twilio_account_sid }}
+#           auth_token: ${{ secrets.twilio_auth_token }}
+#           to_whatsapp_no: ${{ secrets.twilio_to_whatsapp_no }}
+#           message: "CI 👉🏻 Your message here..."
+#         uses: khaled-ibtikar/whatsapp-push-notify-action@master
+        
+  notifyTelegram:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Run fail
-        run: exit 1
-      - name: Send message to Telegram
-        uses: ./
-        if: always()
-        env:
-            TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-            TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
-        with:
-            status: ${{job.status}}
-            
-  no-status:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run success
-        run: exit 0
-      - name: Send message to Telegram
-        uses: ./
-        if: always()
-        env:
-            TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-            TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
-  
-  alternative-template:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run success
-        run: exit 0
-      - name: Send message to Telegram
-        uses: ./
-        if: always()
-        env:
-            TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-            TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
-        with:
-            commit_template: ./templates/commit-alternative.mustache
-            status: ${{job.status}}
+    - name: send custom message
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_CHAT }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          The ${{ github.event_name }} event triggered final step.
+          echo This event is a pull request that had an assignee removed.
