@@ -106,4 +106,5 @@ jobs:
               git commit -m "Update log file"
               git push
             fi
+            git pull
             
