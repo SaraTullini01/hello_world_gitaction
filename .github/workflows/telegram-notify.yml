@@ -1,16 +1,38 @@
 name: Notify
+# on:
+#   push:
+#   release:
+#     types: [published]
+
+# jobs:
+#   notify:
+#     name: Notify via Telegram
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Send message to Telegram
+#         uses: Lukasss93/telegram-action@v2
+#         env:
+#           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+#           TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
 on:
-  push:
-  release:
-    types: [published]
+  push: 
+    branches: [master]
 
 jobs:
-  notify:
-    name: Notify via Telegram
+  success:
     runs-on: ubuntu-latest
     steps:
+
+      - uses: actions/checkout@v2
+
+      - name: Run success
+        run: exit 0
+      
       - name: Send message to Telegram
-        uses: Lukasss93/telegram-action@v2
+        uses: ./
+        if: always()
         env:
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
+            TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+            TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
+        with:
+            status: ${{job.status}}
