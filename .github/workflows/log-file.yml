@@ -22,6 +22,8 @@
 on:
   push:
     branches: [ master ]
+    paths-ignore:
+      - 'log.txt'
 
 jobs:
   write_log_file:
@@ -40,3 +42,10 @@ jobs:
         with:
           name: log-file
           path: log.txt
+      - name: Commit and push log file
+        run: |
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git add log.txt
+            git commit -m "Update log file"
+            git push
