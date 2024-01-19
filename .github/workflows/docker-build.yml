@@ -29,7 +29,15 @@ on:
       - 'log.txt'
 
 jobs:
+  update_log_file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update local repository
+        run: | 
+          git pull
+
   build_and_deploy:
+    needs: update_log_file
     runs-on: self-hosted #ubuntu-latest
 
     steps:
