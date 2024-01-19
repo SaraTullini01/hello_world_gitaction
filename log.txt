@@ -18,3 +18,4 @@ b1a81fc1f66cf128a9797ba978edb2832f92c899 - pull bastardo 2 - SaraTullini01 - Fri
 dea34950c53a357413247afdc03f4c6d22b7d6a8 - non funzionerà - SaraTullini01 - Fri Jan 19 21:09:58 UTC 2024
 94e07fc73ad3d887a2dce46950bf2f81a1a35703 - prova pull e telegram notify - SaraTullini01 - Fri Jan 19 21:45:54 UTC 2024
 e9fb9727aeb2b1970e00fa715421875f5744f5d2 - PROVA - SaraTullini01 - Fri Jan 19 21:49:45 UTC 2024
+a02e683328648ad01c0db2d6dccf08e381a530d9 - telegram - SaraTullini01 - Fri Jan 19 21:56:19 UTC 2024
