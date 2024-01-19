@@ -119,11 +119,16 @@ jobs:
   notifyTelegram:
     runs-on: ubuntu-latest
     steps:
-    - name: send custom message
-      uses: appleboy/telegram-action@master
-      with:
-        to: ${{ secrets.TELEGRAM_CHAT }}
-        token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: |
-          The ${{ github.event_name }} event triggered final step.
-          echo This event is a pull request that had an assignee removed.
+    - name: Get channel members
+      id: get-members
+      run: |
+        curl -X GET "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/getChatMembersCount?chat_id=${{ secrets.TELEGRAM_CHAT }}" -o members.json
+        members=$(cat members.json | jq '.result')
+        echo "::set-output name=members::$members"
+    - name: Send message to channel members
+      id: send-message
+      run: |
+        members=$(echo ${{ steps.get-members.outputs.members }})
+        for member in $(seq 0 $(($members-1))); do
+            curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_CHAT }}" -d "text=Hello member $member!"
+        done
