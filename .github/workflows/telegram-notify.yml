@@ -58,4 +58,4 @@ jobs:
             TELEGRAM_API_URL="https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
             MESSAGE="Questo è un messaggio di notifica da GitHub Actions!"
             
-            curl -X POST -H "Content-Type: application/json" -d "{\"chat_id\":\"${{ secrets.TELEGRAM_CHAT_ID }}\",\"text\":\"${MESSAGE}\"}" ${TELEGRAM_API_URL}
+            curl -X POST -H "Content-Type: application/json" -d "{\"chat_id\":\"${{ secrets.TELEGRAM_CHAT }}\",\"text\":\"${MESSAGE}\"}" ${TELEGRAM_API_URL}
