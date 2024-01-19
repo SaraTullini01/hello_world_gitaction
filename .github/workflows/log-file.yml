@@ -42,10 +42,11 @@ jobs:
         with:
           name: log-file
           path: log.txt
+
       - name: Commit and push log file
         run: |
             git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
+            git config --local user.name "GitHub Action" #da specificare in tesi che ho dovuto modificare parametro su impostazione per autorizzare
             git add log.txt
             git commit -m "Update log file"
             git push
