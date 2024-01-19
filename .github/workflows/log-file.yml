@@ -1,4 +1,4 @@
-# name: Write Log File
+name: Write Log File
 
 # on:
 #   push:
@@ -20,16 +20,20 @@
 #             name: Write to log file
 
 on:
-  push:
-    branches: [ master ]
-    paths-ignore:
-      - 'log.txt'
-
+#   push:
+#     branches: [ master ]
+#     paths-ignore:
+#       - 'log.txt'
+    repository_dispatch:
+      types: trigger_second_workflow
+      
 jobs:
   write_log_file:
     runs-on: ubuntu-latest
 
     steps:
+        # steps for first workflow
+    
       - name: Checkout repository
         uses: actions/checkout@v2
 
@@ -52,9 +56,8 @@ jobs:
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action" #da specificare in tesi che ho dovuto modificare parametro su impostazione per autorizzare
             git add log.txt
-            git commit -m "Update log file"
-            git push
-
-            git config --local user.email "sara.tullini@edu.unife.it"
-            git config --local user.name "SaraTullini01"
+            if [[ $(git status --porcelain) ]]; then
+              git commit -m "Update log file"
+              git push
+            fi
             
