@@ -37,6 +37,8 @@ jobs:
         run: |
           if [[ ! "${{ github.event.head_commit.message }}" == *"Merge"* ]]; then
             echo "${{ github.sha }} - ${{ github.event.head_commit.message }} - ${{ github.actor }} - $(date)" >> log.txt
+          else
+            echo "Update log file" >> log.txt
           fi
           
       - name: Upload log file
