@@ -17,8 +17,7 @@ jobs:
             to: ${{ secrets.TELEGRAM_CHAT }} #da mettere id chat
             token: ${{ secrets.TELEGRAM_TOKEN }}
             message: |
-              The ${{ github.event_name }} event triggered final step.
-              echo This event is a pull request that had an assignee removed.
+              E' stato eseguito un ${{ github.event_name }} event sul repository git.
 
 #   notifyTelegram:
 #     runs-on: ubuntu-latest
