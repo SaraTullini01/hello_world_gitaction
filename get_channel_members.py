@@ -14,7 +14,7 @@ def get_channel_members_ids(channel_id):
         chat_members = bot.get_chat_members(channel_id)
 
         # Ottieni gli ID dei membri
-        member_ids = [member.user.id for member in chat_members]
+        member_ids = [chat_member.user.id for chat_member in chat_members]
 
         return member_ids
     except TelegramError as e:
