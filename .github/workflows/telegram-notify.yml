@@ -7,32 +7,19 @@ on:
     branches: [ master ]
 
 jobs:
+    # #funziona a singola persona
+    # notifyTelegram:
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #     - name: send custom message
+    #       uses: appleboy/telegram-action@master
+    #       with:
+    #         to: ${{ secrets.TELEGRAM_TO }} #da mettere id chat
+    #         token: ${{ secrets.TELEGRAM_TOKEN }}
+    #         message: |
+    #           The ${{ github.event_name }} event triggered final step.
+    #           echo This event is a pull request that had an assignee removed.
 
-#   messageSlack:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Notification Slack
-#       uses: rtCamp/action-slack-notify@v2
-#       env:
-#         SLACK_CHANNEL: ci
-#         SLACK_TITLE: Post Title
-#         SLACK_USERNAME: BotCI
-#         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-#         SLACK_MESSAGE: "This is your custom message."
-
-#   notifyWhatsApp:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@master
-#       - name: Notification WhatsApp
-#         id: whatsapp-notify
-#         env:
-#           account_sid: ${{ secrets.twilio_account_sid }}
-#           auth_token: ${{ secrets.twilio_auth_token }}
-#           to_whatsapp_no: ${{ secrets.twilio_to_whatsapp_no }}
-#           message: "CI 👉🏻 Your message here..."
-#         uses: khaled-ibtikar/whatsapp-push-notify-action@master
-        
 #   notifyTelegram:
 #     runs-on: ubuntu-latest
 #     steps:
@@ -50,12 +37,35 @@ jobs:
 #         # for member in $(seq 0 $(($members-1))); do
 #         #     curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_CHAT }}" -d "text=Hello member $member!"
 #         # done
-  notifyTelegram:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Notify on Commit
-        run: |
-            TELEGRAM_API_URL="https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
-            MESSAGE="Questo è un messaggio di notifica da GitHub Actions!"
+
+# #funziona a singola persona
+#   notifyTelegram:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Notify on Commit
+#         run: |
+#             TELEGRAM_API_URL="https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
+#             MESSAGE="Questo è un messaggio di notifica da GitHub Actions!"
             
-            curl -X POST -H "Content-Type: application/json" -d "{\"chat_id\":\"${{ secrets.TELEGRAM_CHAT }}\",\"text\":\"${MESSAGE}\"}" ${TELEGRAM_API_URL}
+#             curl -X POST -H "Content-Type: application/json" -d "{\"chat_id\":\"${{ secrets.TELEGRAM_CHAT }}\",\"text\":\"${MESSAGE}\"}" ${TELEGRAM_API_URL}
+
+  get_channel_members:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Script
+        run: python get_channel_members.py
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHANNEL_ID: -1001993783434  # Sostituisci con l'ID del tuo canale
