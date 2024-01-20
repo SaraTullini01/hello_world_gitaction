@@ -7,18 +7,18 @@ on:
     branches: [ master ]
 
 jobs:
-    # #funziona a singola persona
-    # notifyTelegram:
-    #     runs-on: ubuntu-latest
-    #     steps:
-    #     - name: send custom message
-    #       uses: appleboy/telegram-action@master
-    #       with:
-    #         to: ${{ secrets.TELEGRAM_TO }} #da mettere id chat
-    #         token: ${{ secrets.TELEGRAM_TOKEN }}
-    #         message: |
-    #           The ${{ github.event_name }} event triggered final step.
-    #           echo This event is a pull request that had an assignee removed.
+    #funziona a singola persona
+    notifyTelegram:
+        runs-on: ubuntu-latest
+        steps:
+        - name: send custom message
+          uses: appleboy/telegram-action@master
+          with:
+            to: ${{ secrets.TELEGRAM_CHAT }} #da mettere id chat
+            token: ${{ secrets.TELEGRAM_TOKEN }}
+            message: |
+              The ${{ github.event_name }} event triggered final step.
+              echo This event is a pull request that had an assignee removed.
 
 #   notifyTelegram:
 #     runs-on: ubuntu-latest
@@ -48,24 +48,3 @@ jobs:
 #             MESSAGE="Questo è un messaggio di notifica da GitHub Actions!"
             
 #             curl -X POST -H "Content-Type: application/json" -d "{\"chat_id\":\"${{ secrets.TELEGRAM_CHAT }}\",\"text\":\"${MESSAGE}\"}" ${TELEGRAM_API_URL}
-
-  get_channel_members:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-
-      - name: Install Dependencies
-        run: pip install -r requirements.txt
-
-      - name: Run Script
-        run: python get_channel_members.py
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          CHANNEL_ID: -1001993783434  # Sostituisci con l'ID del tuo canale
