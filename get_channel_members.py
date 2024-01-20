@@ -10,8 +10,12 @@ bot = Bot(TELEGRAM_BOT_TOKEN)
 
 def get_channel_members_ids(channel_id):
     try:
-        members = bot.get_chat_members(channel_id)
-        member_ids = [member.user.id for member in members]
+        # Ottieni il conteggio dei membri del canale
+        member_count = bot.get_chat_members_count(channel_id)
+
+        # Ottieni gli ID dei membri iterativamente
+        member_ids = [bot.get_chat_member(channel_id, i).user.id for i in range(member_count)]
+
         return member_ids
     except TelegramError as e:
         print(f"Errore durante il recupero degli iscritti del canale: {e}")
