@@ -67,5 +67,5 @@ jobs:
       - name: Run Script
         run: python get_channel_members.py
         env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHANNEL_ID: -1001993783434  # Sostituisci con l'ID del tuo canale
