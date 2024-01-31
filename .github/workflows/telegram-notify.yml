@@ -1,50 +1,50 @@
-name: Notifier
+# name: Notifier
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+# on:
+#   push:
+#     branches: [ master ]
+#   pull_request:
+#     branches: [ master ]
 
-jobs:
-    #funziona a singola persona
-    notifyTelegram:
-        runs-on: ubuntu-latest
-        steps:
-        - name: send custom message
-          uses: appleboy/telegram-action@master
-          with:
-            to: ${{ secrets.TELEGRAM_CHAT }} #da mettere id chat
-            token: ${{ secrets.TELEGRAM_TOKEN }}
-            message: |
-              E' stato eseguito un ${{ github.event_name }} event sul repository git https://github.com/SaraTullini01/hello_world_gitaction.git. 
-              Clicca qui per vedere l'applicazione: http://localhost:8000.
+# jobs:
+#     #funziona a singola persona
+#     notifyTelegram:
+#         runs-on: ubuntu-latest
+#         steps:
+#         - name: send custom message
+#           uses: appleboy/telegram-action@master
+#           with:
+#             to: ${{ secrets.TELEGRAM_CHAT }} #da mettere id chat
+#             token: ${{ secrets.TELEGRAM_TOKEN }}
+#             message: |
+#               E' stato eseguito un ${{ github.event_name }} event sul repository git https://github.com/SaraTullini01/hello_world_gitaction.git. 
+#               Clicca qui per vedere l'applicazione: http://localhost:8000.
 
-#   notifyTelegram:
-#     runs-on: ubuntu-latest
-#     steps:
-#     # - name: Get channel members
-#     #   id: get-members
-#     #   run: |
-#     #     curl -X GET "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/getChatMembersCount?chat_id=${{ secrets.TELEGRAM_CHAT }}" -o members.json
-#     #     members=$(cat members.json | jq '.result')
-#     #     echo "::set-output name=members::$members"
-#     - name: Send message to channel members
-#       id: send-message
-#       run: |
-#         curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_CHAT }}" -d "text=Ciao! E' stato effettuato un nuovo commit nel repository. Vieni a vedere!"
-#         # members=$(echo ${{ steps.get-members.outputs.members }})
-#         # for member in $(seq 0 $(($members-1))); do
-#         #     curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_CHAT }}" -d "text=Hello member $member!"
-#         # done
+# #   notifyTelegram:
+# #     runs-on: ubuntu-latest
+# #     steps:
+# #     # - name: Get channel members
+# #     #   id: get-members
+# #     #   run: |
+# #     #     curl -X GET "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/getChatMembersCount?chat_id=${{ secrets.TELEGRAM_CHAT }}" -o members.json
+# #     #     members=$(cat members.json | jq '.result')
+# #     #     echo "::set-output name=members::$members"
+# #     - name: Send message to channel members
+# #       id: send-message
+# #       run: |
+# #         curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_CHAT }}" -d "text=Ciao! E' stato effettuato un nuovo commit nel repository. Vieni a vedere!"
+# #         # members=$(echo ${{ steps.get-members.outputs.members }})
+# #         # for member in $(seq 0 $(($members-1))); do
+# #         #     curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_CHAT }}" -d "text=Hello member $member!"
+# #         # done
 
-# #funziona a singola persona
-#   notifyTelegram:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Notify on Commit
-#         run: |
-#             TELEGRAM_API_URL="https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
-#             MESSAGE="Questo è un messaggio di notifica da GitHub Actions!"
+# # #funziona a singola persona
+# #   notifyTelegram:
+# #     runs-on: ubuntu-latest
+# #     steps:
+# #       - name: Notify on Commit
+# #         run: |
+# #             TELEGRAM_API_URL="https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
+# #             MESSAGE="Questo è un messaggio di notifica da GitHub Actions!"
             
-#             curl -X POST -H "Content-Type: application/json" -d "{\"chat_id\":\"${{ secrets.TELEGRAM_CHAT }}\",\"text\":\"${MESSAGE}\"}" ${TELEGRAM_API_URL}
+# #             curl -X POST -H "Content-Type: application/json" -d "{\"chat_id\":\"${{ secrets.TELEGRAM_CHAT }}\",\"text\":\"${MESSAGE}\"}" ${TELEGRAM_API_URL}
